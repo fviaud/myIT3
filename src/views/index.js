@@ -1,0 +1,5 @@
+export { default as Dashboard } from "./Dashboard"
+export { default as Project } from "./Project"
+export { default as Ressources } from "./Ressources"
+export { default as Members } from "./Members"
+export { default as Billing } from "./Billing"

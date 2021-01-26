@@ -1,6 +1,6 @@
 import * as types from "./types.js"
 
-export const user = (state = {}, action) => {
+export const curentUser = (state = {}, action) => {
     switch (action.type) {
         case types.REQUEST_USER_ACTION:
             return {

@@ -64,7 +64,6 @@ export default ({ user, index }) => {
         </IconButton>
         <Menu
           anchorEl={anchorEl}
-          // keepMounted
           open={open}
           onClose={handleClose}
           PaperProps={{

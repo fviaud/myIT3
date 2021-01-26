@@ -37,7 +37,7 @@ export default () => {
               <ListItemAvatar>
                 <FolderIcon />
               </ListItemAvatar>
-              <ListItemText primary={project.name} />
+              <ListItemText primary={project.title} />
             </ListItem>
           ))}
       </List>

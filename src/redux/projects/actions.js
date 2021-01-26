@@ -7,7 +7,8 @@ export const fetchProjectsAction = () => {
         dispatch(requestProjectsAction())
         try {
             const response = await getProjects()
-            dispatch(addProjectsStoreAction(response.data))
+            // dispatch(addProjectsStoreAction(response.data))
+            dispatch(addProjectsStoreAction(response))
         } catch (error) {
             dispatch(errorFetchProjectsAction("erreur accès api projects"))
         }

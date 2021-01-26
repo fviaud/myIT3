@@ -11,7 +11,7 @@ export const projectsReducer = (state = { values: [{ name: "project1", members: 
             return {
                 ...state,
                 isLoading: false,
-                values: [...state.values, action.data]
+                values: [...state.values, ...action.data]
             }
         case types.ERR_FETCH_PROJECTS:
             return {

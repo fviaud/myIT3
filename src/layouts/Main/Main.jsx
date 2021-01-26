@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -9,18 +9,12 @@ import IconButton from "@material-ui/core/IconButton";
 import { Box, Container, CssBaseline } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
-import "../../redux/project";
-import "../../redux/projects";
-import "../../redux/ressources";
-import "../../redux/users";
-
 import Projects from "../../views/Projects";
-
+import { fetchProjectsAction } from "../../redux/projects/actions";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-
   appBar: {
     color: "black",
     background: "white",
@@ -36,7 +30,12 @@ const useStyles = makeStyles((theme) => ({
 export default function ButtonAppBar() {
   const classes = useStyles();
   const menuId = "primary-search-account-menu";
-  const user = useSelector((state) => state.user);
+  const curentUser = useSelector((state) => state.curentUser);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProjectsAction());
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -45,7 +44,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Tools
           </Typography>
-          {user.values ? (
+          {curentUser.values ? (
             <div className={classes.sectionDesktop}>
               <IconButton
                 edge="end"

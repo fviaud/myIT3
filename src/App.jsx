@@ -17,6 +17,11 @@ const browserHistory = createBrowserHistory();
 //     </>
 // }
 
+import "./redux/project";
+import "./redux/projects";
+import "./redux/ressources";
+import "./redux/users";
+
 const App = () => {
   // const user = useSelector((state) => state.user);
   const dispatch = useDispatch();

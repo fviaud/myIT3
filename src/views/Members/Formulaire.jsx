@@ -37,6 +37,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+// const apiUerMap= (user) => ({
+//   id: user.id,
+//   name: user.name,
+
+// });
+
 export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -55,19 +61,25 @@ export default () => {
   };
 
   const handleSave = () => {
-    console.log(members);
     dispatch(addProjectStoreAction({ ...project.values, members: [...project.values.members, ...members] }));
     handleClose();
   };
 
   const handleInputChange = (event, values) => {
     event.persist();
-    setMembers((state) => [...values]);
+    setMembers((state) => [...values.map((user) => ({ id: user.id, name: user.name }))]);
   };
 
   return (
     <div>
-      <Button variant="outlined" color="primary" size="small" startIcon={<PersonAddIcon />} onClick={handleClickOpen}>
+      <Button
+        variant="outlined"
+        color="primary"
+        size="small"
+        startIcon={<PersonAddIcon />}
+        onClick={handleClickOpen}
+        disabled={users.isLoading}
+      >
         Add
       </Button>
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>

@@ -6,6 +6,7 @@ import FolderIcon from "@material-ui/icons/Folder";
 import Formulaire from "./Formulaire";
 import Pagination from "./Paginations";
 import Skeleton from "@material-ui/lab/Skeleton";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import { fetchProjectsAction } from "../../redux/projects/actions";
 
@@ -45,43 +46,15 @@ export default () => {
       <Divider />
       {projects.isLoading ? (
         <>
-          <Typography component="div" variant={"h3"}>
-            <Skeleton />
-          </Typography>
-          <Typography component="div" variant={"h3"}>
-            <Skeleton />
-          </Typography>
-          <Typography component="div" variant={"h3"}>
-            <Skeleton />
-          </Typography>
-          <Typography component="div" variant={"h3"}>
-            <Skeleton />
-          </Typography>
-          <Typography component="div" variant={"h3"}>
-            <Skeleton />
-          </Typography>
-          <Typography component="div" variant={"h3"}>
-            <Skeleton />
-          </Typography>
-          <Typography component="div" variant={"h3"}>
-            <Skeleton />
-          </Typography>
-          <Typography component="div" variant={"h3"}>
-            <Skeleton />
-          </Typography>
-          <Typography component="div" variant={"h3"}>
-            <Skeleton />
-          </Typography>
-          <Typography component="div" variant={"h3"}>
-            <Skeleton />
-          </Typography>
+          <LinearProgress />
         </>
       ) : (
         <>
           <List component="nav">
             {projects.values &&
               projects.values.map((project, index) => (
-                <ListItem button component={CustomRouterLink} to={`/project/${index}/overview`} key={index}>
+                // <ListItem button component={CustomRouterLink} to={`/project/${index}/overview`} key={index}>
+                <ListItem button component={CustomRouterLink} to={`/project/${project.id}/overview`} key={index}>
                   <ListItemAvatar>
                     <FolderIcon />
                   </ListItemAvatar>

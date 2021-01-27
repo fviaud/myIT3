@@ -18,7 +18,7 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 
 import { TextField, Container, Box } from "@material-ui/core";
 import "../../redux/project";
-import { addProjectStoreAction } from "../../redux/project/actions";
+import { addProjectStoreAction, updateProjectAction } from "../../redux/project/actions";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -55,7 +55,8 @@ export default () => {
   };
 
   const handleSave = () => {
-    dispatch(addProjectStoreAction({ ...project.values, members: [...project.values.members, ...members] }));
+    // dispatch(addProjectStoreAction({ ...project.values, members: [...project.values.members, ...members] }));
+    dispatch(updateProjectAction({ ...project.values, members: [...project.values.members, ...members] }));
     handleClose();
   };
 

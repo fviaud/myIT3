@@ -1,12 +1,13 @@
-import { getProject } from "../../api/api.projects"
+import { getProject, updateProject } from "../../api/api.projects"
 import 'regenerator-runtime/runtime'
 import * as types from "./types.js"
 
-export const fetchProjectAction = () => {
+export const fetchProjectAction = (id) => {
     return async (dispatch) => {
         dispatch(requestProjectAction())
         try {
-            const response = await getProject()
+            const response = await getProject(id)
+            console.log("response")
             dispatch(addProjectStoreAction(response.data))
         } catch (error) {
             dispatch(errorFetchProjectAction("erreur accès api projects"))
@@ -24,6 +25,19 @@ export const addProjectStoreAction = (data) => {
     return {
         type: types.ADD_PROJECT_STORE,
         data
+    }
+}
+
+export const updateProjectAction = (project) => {
+    return async (dispatch) => {
+        console.log(project)
+        dispatch(requestProjectAction())
+        try {
+            const response = await updateProject(project.id, project)
+            addProjectStoreAction(response)
+        } catch {
+            dispatch(errorFetchProjectAction("erreur accès api projects"))
+        }
     }
 }
 

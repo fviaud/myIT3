@@ -328,7 +328,7 @@ export default function MiniDrawer({ children }) {
             Tools
           </Typography>
 
-          <div className={classes.search}>
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -340,7 +340,7 @@ export default function MiniDrawer({ children }) {
               }}
               inputProps={{ "aria-label": "search" }}
             />
-          </div>
+          </div> */}
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

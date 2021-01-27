@@ -1,7 +1,6 @@
 import * as types from "./types.js"
 
 export const projectsReducer = (state = { values: [] }, action) => {
-    // export const projectsReducer = (state = {}, action) => {
     switch (action.type) {
         case types.REQUEST_PROJECTS_ACTION:
             return {
@@ -12,7 +11,8 @@ export const projectsReducer = (state = { values: [] }, action) => {
             return {
                 ...state,
                 isLoading: false,
-                values: [...state.values, ...action.data]
+                values: [...action.data.projects],
+                totalPages: action.data.totalPages
             }
         case types.ERR_FETCH_PROJECTS:
             return {

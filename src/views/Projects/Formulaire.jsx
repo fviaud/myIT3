@@ -16,7 +16,7 @@ import FolderIcon from "@material-ui/icons/Folder";
 
 import { TextField, Container, Box } from "@material-ui/core";
 import "../../redux/project";
-import { addProjectsStoreAction } from "../../redux/projects/actions";
+import { addProjectsStoreAction, addProjectAction } from "../../redux/projects/actions";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -63,7 +63,7 @@ export default () => {
   });
 
   const onSubmit = (data) => {
-    dispatch(addProjectsStoreAction(data));
+    dispatch(addProjectAction(data));
     handleClose();
   };
 

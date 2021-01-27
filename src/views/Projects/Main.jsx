@@ -1,19 +1,34 @@
-import React, { forwardRef } from "react";
-import { useSelector } from "react-redux";
-import { NavLink as RouterLink } from "react-router-dom";
+import React, { useEffect, forwardRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink as RouterLink, useLocation } from "react-router-dom";
 import { makeStyles, Box, List, ListItem, ListItemText, ListItemAvatar, Typography, Divider } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 import Formulaire from "./Formulaire";
+import Pagination from "./Paginations";
 
-const useStyles = makeStyles(() => ({
+import { fetchProjectsAction } from "../../redux/projects/actions";
+
+const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  contentBody: {
+    marginTop: theme.spacing(2),
+    display: "flex",
+    justifyContent: "center",
+  },
 }));
 
-export default () => {
+export default ({ totalPages = 3 }) => {
   const classes = useStyles();
+  const location = useLocation();
+  const page = new URLSearchParams(location.search).get("page");
   const projects = useSelector((state) => state.projects);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProjectsAction(page));
+  }, [dispatch, location]);
 
   const CustomRouterLink = forwardRef((props, ref) => (
     <div ref={ref}>
@@ -41,6 +56,9 @@ export default () => {
             </ListItem>
           ))}
       </List>
+      <Box className={classes.contentBody}>
+        <Pagination total_pages={projects.totalPages} />
+      </Box>
     </>
   );
 };

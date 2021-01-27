@@ -14,6 +14,7 @@ import {
   Divider,
 } from "@material-ui/core";
 import Formulaire from "./Formulaire";
+import FolderOpenIcon from "@material-ui/icons/FolderOpen";
 
 import DnsIcon from "@material-ui/icons/Dns";
 import ComputerIcon from "@material-ui/icons/Computer";
@@ -22,6 +23,10 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
+  },
+  wrapIcon: {
+    verticalAlign: "middle",
+    display: "inline-flex",
   },
 }));
 
@@ -38,13 +43,18 @@ export default () => {
 
   return (
     <>
-      <Box display="flex" mb={1}>
+      <Typography variant="subtitle1" className={classes.wrapIcon}>
+        <FolderOpenIcon />
+        <Box ml={1}>{project.values.title}</Box>
+      </Typography>
+      <Divider />
+      <Box display="flex" mt={1}>
         <Typography variant="h6" color="primary" className={classes.title}>
-          Ressources of this project
+          Ressources
         </Typography>
         <Formulaire />
       </Box>
-      <Divider />
+
       <List component="nav" aria-label="main mailbox folders">
         {ressources.values &&
           ressources.values

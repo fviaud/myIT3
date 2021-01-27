@@ -35,8 +35,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import StorageIcon from "@material-ui/icons/Storage";
 import PeopleIcon from "@material-ui/icons/People";
 import EuroIcon from "@material-ui/icons/Euro";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import FolderIcon from "@material-ui/icons/Folder";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 const drawerWidth = 240;
 
@@ -284,7 +283,7 @@ export default function MiniDrawer({ children }) {
     {
       title: "Project",
       href: `/project/${project.values && project.values.id}/overview`,
-      icon: <FolderIcon />,
+      icon: <SettingsIcon />,
     },
     {
       title: "Ressources",

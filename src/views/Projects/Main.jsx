@@ -5,6 +5,7 @@ import { makeStyles, Box, List, ListItem, ListItemText, ListItemAvatar, Typograp
 import FolderIcon from "@material-ui/icons/Folder";
 import Formulaire from "./Formulaire";
 import Pagination from "./Paginations";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 import { fetchProjectsAction } from "../../redux/projects/actions";
 
@@ -19,23 +20,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ({ totalPages = 3 }) => {
+export default () => {
   const classes = useStyles();
   const location = useLocation();
   const page = new URLSearchParams(location.search).get("page");
   const projects = useSelector((state) => state.projects);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProjectsAction(page));
   }, [dispatch, location]);
-
   const CustomRouterLink = forwardRef((props, ref) => (
     <div ref={ref}>
       <RouterLink {...props} />
     </div>
   ));
-
   return (
     <>
       <Box display="flex" mb={1}>
@@ -45,20 +43,57 @@ export default ({ totalPages = 3 }) => {
         <Formulaire />
       </Box>
       <Divider />
-      <List component="nav" aria-label="main mailbox folders">
-        {projects.values &&
-          projects.values.map((project, index) => (
-            <ListItem button component={CustomRouterLink} to={`/project/${index}/overview`} key={index}>
-              <ListItemAvatar>
-                <FolderIcon />
-              </ListItemAvatar>
-              <ListItemText primary={project.title} />
-            </ListItem>
-          ))}
-      </List>
-      <Box className={classes.contentBody}>
-        <Pagination total_pages={projects.totalPages} />
-      </Box>
+      {projects.isLoading ? (
+        <>
+          <Typography component="div" variant={"h3"}>
+            <Skeleton />
+          </Typography>
+          <Typography component="div" variant={"h3"}>
+            <Skeleton />
+          </Typography>
+          <Typography component="div" variant={"h3"}>
+            <Skeleton />
+          </Typography>
+          <Typography component="div" variant={"h3"}>
+            <Skeleton />
+          </Typography>
+          <Typography component="div" variant={"h3"}>
+            <Skeleton />
+          </Typography>
+          <Typography component="div" variant={"h3"}>
+            <Skeleton />
+          </Typography>
+          <Typography component="div" variant={"h3"}>
+            <Skeleton />
+          </Typography>
+          <Typography component="div" variant={"h3"}>
+            <Skeleton />
+          </Typography>
+          <Typography component="div" variant={"h3"}>
+            <Skeleton />
+          </Typography>
+          <Typography component="div" variant={"h3"}>
+            <Skeleton />
+          </Typography>
+        </>
+      ) : (
+        <>
+          <List component="nav">
+            {projects.values &&
+              projects.values.map((project, index) => (
+                <ListItem button component={CustomRouterLink} to={`/project/${index}/overview`} key={index}>
+                  <ListItemAvatar>
+                    <FolderIcon />
+                  </ListItemAvatar>
+                  <ListItemText primary={project.title} />
+                </ListItem>
+              ))}
+          </List>
+          <Box className={classes.contentBody}>
+            <Pagination total_pages={projects.totalPages} />
+          </Box>
+        </>
+      )}
     </>
   );
 };

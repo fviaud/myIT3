@@ -37,12 +37,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-// const apiUerMap= (user) => ({
-//   id: user.id,
-//   name: user.name,
-
-// });
-
 export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();

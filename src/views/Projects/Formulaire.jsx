@@ -16,7 +16,7 @@ import FolderIcon from "@material-ui/icons/Folder";
 
 import { TextField, Container, Box } from "@material-ui/core";
 import "../../redux/project";
-import { addProjectsStoreAction, addProjectAction } from "../../redux/projects/actions";
+import { addProjectAction } from "../../redux/projects/actions";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {

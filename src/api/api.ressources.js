@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime'
 
 const apiRessources = axios.create({ baseURL: "https://jsonplaceholder.typicode.com/posts" });
 
-// export const getRessources = () => { return apiRessources.get() }
+export const getRessources = (id) => { return apiRessources.get(`/${id}/comments`) }
 export const getRessource = (id) => { return apiRessources.get("/" + id) }
 export const addRessource = (objet) => { return apiRessources.post("/", objet) };
 

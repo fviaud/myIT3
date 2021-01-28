@@ -1,6 +1,7 @@
 import React, { useEffect, forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink as RouterLink } from "react-router-dom";
+import { NavLink as RouterLink, useLocation } from "react-router-dom";
+
 import {
   makeStyles,
   Box,
@@ -22,6 +23,7 @@ import ComputerIcon from "@material-ui/icons/Computer";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Pagination from "./Paginations";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -31,6 +33,11 @@ const useStyles = makeStyles((theme) => ({
     verticalAlign: "middle",
     display: "inline-flex",
   },
+  contentBody: {
+    marginTop: theme.spacing(2),
+    display: "flex",
+    justifyContent: "center",
+  },
 }));
 
 export default () => {
@@ -38,11 +45,14 @@ export default () => {
   const project = useSelector((state) => state.project);
   const ressources = useSelector((state) => state.ressources);
 
+  const location = useLocation();
+  const page = new URLSearchParams(location.search).get("page");
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchRessourcesAction(project.values.idProject));
-  }, [dispatch]);
+    dispatch(fetchRessourcesAction(project.values.id, page));
+  }, [dispatch, project.values.idProject, location]);
 
   const CustomRouterLink = forwardRef((props, ref) => (
     <div ref={ref}>
@@ -72,20 +82,23 @@ export default () => {
 
           <List component="nav" aria-label="main mailbox folders">
             {ressources.values &&
-              ressources.values
-                .filter((ressource) => ressource.idProject === project.values.id)
-                .map((ressource, index) => (
-                  <ListItem button component={CustomRouterLink} to={`/project/${index}/overview`} key={index}>
-                    <ListItemAvatar>{ressource.type === "environment" ? <DnsIcon /> : <ComputerIcon />}</ListItemAvatar>
-                    <ListItemText primary={ressource.type} />
-                    <ListItemSecondaryAction>
-                      <IconButton edge="end">
-                        <MoreIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                ))}
+              ressources.values.map((ressource, index) => (
+                <ListItem button component={CustomRouterLink} to={`/project/${index}/overview`} key={index}>
+                  <ListItemAvatar>{ressource.type === "environment" ? <DnsIcon /> : <ComputerIcon />}</ListItemAvatar>
+                  <ListItemText primary={ressource.type} />
+                  <ListItemSecondaryAction>
+                    <IconButton edge="end">
+                      <MoreIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
           </List>
+          {ressources.totalPages > 1 && (
+            <Box className={classes.contentBody}>
+              <Pagination total_pages={ressources.totalPages} />
+            </Box>
+          )}
         </>
       )}
     </>

@@ -6,10 +6,11 @@ export const fetchProjectsAction = (page) => {
     return async (dispatch) => {
         dispatch(requestProjectsAction())
         try {
+            const objetByPage = objetByPage || 10
             const newPage = page || 1
             const response = await getProjects()
-            const totalPages = response.data.length / 10
-            const projects = response.data.filter((project, index) => index < newPage * 10 && index >= (newPage - 1) * 10)
+            const totalPages = Math.ceil(response.data.length / objetByPage)
+            const projects = response.data.filter((project, index) => index < newPage * objetByPage && index >= (newPage - 1) * objetByPage)
             // dispatch(addProjectsStoreAction(response.data))
             dispatch(addProjectsStoreAction({ projects, totalPages }))
         } catch (error) {

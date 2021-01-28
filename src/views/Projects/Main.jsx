@@ -5,7 +5,6 @@ import { makeStyles, Box, List, ListItem, ListItemText, ListItemAvatar, Typograp
 import FolderIcon from "@material-ui/icons/Folder";
 import Formulaire from "./Formulaire";
 import Pagination from "./Paginations";
-import Skeleton from "@material-ui/lab/Skeleton";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 import { fetchProjectsAction } from "../../redux/projects/actions";
@@ -55,7 +54,6 @@ export default () => {
           <List component="nav">
             {projects.values &&
               projects.values.map((project, index) => (
-                // <ListItem button component={CustomRouterLink} to={`/project/${index}/overview`} key={index}>
                 <ListItem button component={CustomRouterLink} to={`/project/${project.id}/overview`} key={index}>
                   <ListItemAvatar>
                     <FolderIcon />
@@ -64,9 +62,11 @@ export default () => {
                 </ListItem>
               ))}
           </List>
-          <Box className={classes.contentBody}>
-            <Pagination total_pages={projects.totalPages} />
-          </Box>
+          {projects.totalPages > 1 && (
+            <Box className={classes.contentBody}>
+              <Pagination total_pages={projects.totalPages} />
+            </Box>
+          )}
         </>
       )}
     </>

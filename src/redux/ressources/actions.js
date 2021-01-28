@@ -8,14 +8,22 @@ export const requestRessourcesAction = () => {
     }
 }
 
-export const fetchRessourcesAction = (projectId) => {
+export const fetchRessourcesAction = (projectId, page) => {
     return async (dispatch) => {
         dispatch(requestRessourcesAction())
         try {
-            // const response = await getRessources(projectId)
-            const response = { data: [] }
-            console.log(response.data)
-            dispatch(addRessourcesStoreAction(response.data))
+            const objetByPage = objetByPage || 10
+            const newPage = page || 1
+            const response = await getRessources(projectId)
+            const totalPages = Math.ceil(response.data.length / objetByPage)
+            const ressources = response.data.filter((ressource, index) => index < newPage * objetByPage && index >= (newPage - 1) * objetByPage)
+                .map((ressource) => (ressource.id % 2 == 0 ? { type: "environment" } : { type: "virual machine" }))
+
+
+            // const response = { data: [] }
+            // dispatch(addRessourcesStoreAction(response.data))
+            dispatch(addRessourcesStoreAction({ ressources, totalPages }))
+
         } catch (error) {
             dispatch(errorFetchRessourcesAction("erreur accès api Ressources"))
         }

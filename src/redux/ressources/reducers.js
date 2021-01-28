@@ -18,7 +18,9 @@ export const ressourcesReducer = (state, action) => {
                 ...state,
                 isLoading: false,
                 // values: [...state.values, ...action.data]
-                values: [...action.data]
+                // values: [...action.data]
+                values: [...action.data.ressources],
+                totalPages: action.data.totalPages
             }
         case types.ERR_FETCH_RESSOURCES:
             return {

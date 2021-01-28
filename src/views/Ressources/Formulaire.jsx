@@ -105,7 +105,7 @@ export default () => {
 
   const onSubmit = (data) => {
     // dispatch(addRessourcesStoreAction({ project: project.values.id, ...ressource, ...data }));
-    dispatch(addRessourceAction({ idProject: project.values.id, ...ressource, ...data }));
+    dispatch(addRessourceAction({ projectId: project.values.id, ...ressource, ...data }));
     setValue(0);
     handleClose();
   };

@@ -12,7 +12,8 @@ const CustomRouterLink = forwardRef((props, ref) => (
 ));
 
 // export default function PaginationLink() {
-export default ({ total_pages }) => {
+export default (props) => {
+  const { total_pages } = props;
   const location = useLocation();
   const search = new URLSearchParams(location.search).get("search");
 
@@ -20,7 +21,7 @@ export default ({ total_pages }) => {
     <Route>
       {({ location }) => {
         const query = new URLSearchParams(location.search);
-        const page = parseInt(query.get("page") || "1", 10);
+        const page = parseInt(query.get("page") || "1", 2);
         return (
           <Pagination
             page={page}

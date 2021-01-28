@@ -7,8 +7,8 @@ export const fetchProjectAction = (id) => {
         dispatch(requestProjectAction())
         try {
             const response = await getProject(id)
-            console.log("response")
-            dispatch(addProjectStoreAction(response.data))
+            const project = { ...response.data, members: [] }
+            dispatch(addProjectStoreAction(project))
         } catch (error) {
             dispatch(errorFetchProjectAction("erreur accès api projects"))
         }
@@ -28,13 +28,12 @@ export const addProjectStoreAction = (data) => {
     }
 }
 
-export const updateProjectAction = (project) => {
+export const updateProjectAction = (id, data) => {
     return async (dispatch) => {
-        console.log(project)
         dispatch(requestProjectAction())
         try {
-            const response = await updateProject(project.id, project)
-            addProjectStoreAction(response)
+            const response = await updateProject(id, data)
+            dispatch(addProjectStoreAction(response.data))
         } catch {
             dispatch(errorFetchProjectAction("erreur accès api projects"))
         }

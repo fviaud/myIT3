@@ -55,8 +55,7 @@ export default () => {
   };
 
   const handleSave = () => {
-    // dispatch(addProjectStoreAction({ ...project.values, members: [...project.values.members, ...members] }));
-    dispatch(updateProjectAction({ ...project.values, members: [...project.values.members, ...members] }));
+    dispatch(updateProjectAction(project.values.id, { members: [...project.values.members, ...members] }));
     handleClose();
   };
 

@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
-import { addProjectStoreAction } from "../../redux/project/actions";
+import { addProjectStoreActio, updateProjectAction } from "../../redux/project/actions";
 
 export default ({ user, index }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -36,14 +36,14 @@ export default ({ user, index }) => {
     const user = { ...project.values.members[id], admin: etat };
     const members = project.values.members;
     members.splice(id, 1, user);
-    dispatch(addProjectStoreAction({ ...project.values, members }));
+    dispatch(updateProjectAction(project.values.id, { members: [...members] }));
     handleClose();
   };
 
   const handleDelete = (id) => {
     const members = project.values.members;
     members.splice(id, 1);
-    dispatch(addProjectStoreAction({ ...project.values, members }));
+    dispatch(updateProjectAction(project.values.id, { members: [...members] }));
     handleClose();
   };
 

@@ -27,9 +27,11 @@ export default () => {
   const page = new URLSearchParams(location.search).get("page");
   const projects = useSelector((state) => state.projects);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchProjectsAction(page));
   }, [dispatch, location]);
+
   const CustomRouterLink = forwardRef((props, ref) => (
     <div ref={ref}>
       <RouterLink {...props} />
@@ -39,7 +41,7 @@ export default () => {
     <>
       <Box display="flex" mb={1}>
         <Typography color="primary" variant="h5" className={classes.title}>
-          Your projects
+          Projects
         </Typography>
         <Formulaire />
       </Box>

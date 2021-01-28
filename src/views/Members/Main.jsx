@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { makeStyles, Box, List, Typography, Divider } from "@material-ui/core";
 import { fetchUsersAction } from "../../redux/users/actions";
 import FolderOpenIcon from "@material-ui/icons/FolderOpen";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import Formulaire from "./Formulaire";
 import Item from "./Item";
@@ -40,16 +41,24 @@ export default () => {
         <Box ml={1}>{project.values.title}</Box>
       </Typography>
       <Divider />
-      <Box display="flex" mt={1}>
-        <Typography variant="h6" color="primary" className={classes.title}>
-          Members
-        </Typography>
-        <Formulaire />
-      </Box>
+      {project.isLoading ? (
+        <>
+          <LinearProgress />
+        </>
+      ) : (
+        <>
+          <Box display="flex" mt={1}>
+            <Typography variant="h6" color="primary" className={classes.title}>
+              Members
+            </Typography>
+            <Formulaire />
+          </Box>
 
-      <List>
-        {project.values.members && project.values.members.map((user, index) => <Item user={user} index={index} />)}
-      </List>
+          <List>
+            {project.values.members && project.values.members.map((user, index) => <Item user={user} index={index} />)}
+          </List>
+        </>
+      )}
     </>
   );
 };

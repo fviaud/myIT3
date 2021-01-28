@@ -9,7 +9,7 @@ export const fetchProjectsAction = (page) => {
             const newPage = page || 1
             const response = await getProjects()
             const totalPages = response.data.length / 10
-            const projects = response.data.filter((project, index) => index < newPage * 10 && index > (newPage - 1) * 10)
+            const projects = response.data.filter((project, index) => index < newPage * 10 && index >= (newPage - 1) * 10)
             // dispatch(addProjectsStoreAction(response.data))
             dispatch(addProjectsStoreAction({ projects, totalPages }))
         } catch (error) {
@@ -23,6 +23,7 @@ export const addProjectAction = (project) => {
         dispatch(requestProjectsAction())
         try {
             const response = await addProject(project)
+            dispatch(fetchProjectsAction())
         } catch (error) {
             dispatch(errorFetchProjectsAction("erreur accès api projects"))
         }

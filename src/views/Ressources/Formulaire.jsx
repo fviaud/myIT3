@@ -15,7 +15,7 @@ import ComputerIcon from "@material-ui/icons/Computer";
 import Slide from "@material-ui/core/Slide";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField, Container, Grid, Box, Card, CardActionArea, CardContent } from "@material-ui/core";
-import { addRessourcesStoreAction } from "../../redux/ressources/actions";
+import { addRessourcesStoreAction, addRessourceAction } from "../../redux/ressources/actions";
 import StorageIcon from "@material-ui/icons/Storage";
 
 const useStyles = makeStyles((theme) => ({
@@ -104,7 +104,8 @@ export default () => {
   });
 
   const onSubmit = (data) => {
-    dispatch(addRessourcesStoreAction({ project: project.values.id, ...ressource, ...data }));
+    // dispatch(addRessourcesStoreAction({ project: project.values.id, ...ressource, ...data }));
+    dispatch(addRessourceAction({ idProject: project.values.id, ...ressource, ...data }));
     setValue(0);
     handleClose();
   };

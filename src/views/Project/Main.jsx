@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProjectStoreAction, fetchProjectAction } from "../../redux/project/actions";
+import { fetchProjectAction } from "../../redux/project/actions";
 import { TextField, Typography, Box, Divider, makeStyles } from "@material-ui/core";
 import FolderOpenIcon from "@material-ui/icons/FolderOpen";
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -19,33 +19,25 @@ export default ({ match }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      // addProjectStoreAction({
-      //   ...projects.values[match.params.id],
-      //   id: match.params.id,
-      //   members: [{ id: curentUser.id, name: curentUser.name, admin: true }],
-      // })
-      fetchProjectAction(match.params.id)
-    );
-  }, []);
+    dispatch(fetchProjectAction(match.params.id));
+  }, [match.params.id]);
 
   return (
     <>
       <Typography variant="subtitle1" className={classes.wrapIcon}>
         <FolderOpenIcon />
-        <Box ml={1}>{projects.values[match.params.id].title}</Box>
+        <Box ml={1}>{project.isLoading || project.values.title}</Box>
       </Typography>
       <Divider />
-
-      <Box display="flex" mt={1}>
-        <Typography variant="h6" color="primary" className={classes.title}>
-          Settings
-        </Typography>
-      </Box>
 
       {project.isLoading ? (
         <>
           <LinearProgress />
+          <Box display="flex" mt={1}>
+            <Typography variant="h6" color="primary" className={classes.title}>
+              Settings
+            </Typography>
+          </Box>
         </>
       ) : (
         project.values.id && (
@@ -56,7 +48,7 @@ export default ({ match }) => {
                 component="div"
                 label={"Name"}
                 required
-                value={projects.values[match.params.id].title}
+                value={project.values.title}
                 InputProps={{ disableUnderline: true }}
                 // inputProps={{ readOnly: true }}
               />
@@ -66,9 +58,9 @@ export default ({ match }) => {
                 fullWidth
                 label={"Détails"}
                 required
-                value={projects.values[match.params.id].body}
+                value={project.values.body}
                 multiline
-                rowsMax={4}
+                rowsMax={8}
                 InputProps={{ disableUnderline: true }}
                 // inputProps={{ readOnly: true }}
               />

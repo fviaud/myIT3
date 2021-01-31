@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
-import { Router } from "react-router-dom";
+import React, { Suspense, useEffect } from "react";
 import { createBrowserHistory } from "history";
 import { default as Routes } from "./Routes";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserAction } from "./redux/store/actions";
-
+import LinearProgress from "@material-ui/core/LinearProgress";
 const browserHistory = createBrowserHistory();
 
 // export default () => {
@@ -28,10 +27,11 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchUserAction());
   }, []);
+
   return (
-    <Router history={browserHistory}>
+    <Suspense fallback={<LinearProgress />}>
       <Routes />
-    </Router>
+    </Suspense>
   );
 };
 

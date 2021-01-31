@@ -1,18 +1,22 @@
-import React from "react";
+import React, { lazy, } from "react";
 import { Switch, Redirect } from "react-router-dom";
+
 
 import { RouteWithLayout } from "./components";
 import { Main as MainLayout } from "./layouts";
 import { Project as ProjetLayout } from "./layouts";
 
-import { Dashboard, Project, Ressources, Members, Billing } from "./views";
+import { Ressources, Members, Billing } from "./views";
+
+const Projects = lazy(() => import("./views/Projects"));
+const Project = lazy(() => import("./views/Project"));
 
 export default () => {
   return (
     <Switch>
 
       <RouteWithLayout
-        component={Dashboard}
+        component={Projects}
         exact
         layout={MainLayout}
         path="/dashboard"

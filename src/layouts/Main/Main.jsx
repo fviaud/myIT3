@@ -9,8 +9,6 @@ import IconButton from "@material-ui/core/IconButton";
 import { Box, Container, CssBaseline } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
-import Projects from "../../views/Projects";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -27,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar({ children }) {
   const classes = useStyles();
   const menuId = "primary-search-account-menu";
   const curentUser = useSelector((state) => state.curentUser);
@@ -60,7 +58,7 @@ export default function ButtonAppBar() {
       <CssBaseline />
       <Container fixed>
         <Box mt={5} />
-        <Projects />
+        {children}
       </Container>
     </div>
   );

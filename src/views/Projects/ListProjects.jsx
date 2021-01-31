@@ -1,10 +1,11 @@
-import React, { useEffect, forwardRef } from "react";
+import React, { useEffect, forwardRef, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink as RouterLink, useLocation } from "react-router-dom";
 import { makeStyles, Box, List, ListItem, ListItemText, ListItemAvatar, Typography, Divider } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 import Pagination from "./Paginations";
 import { fetchProjectsAction } from "../../redux/projects/actions";
+import LinearProgress from "@material-ui/core/LinearProgress";
 const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
@@ -23,7 +24,7 @@ export default () => {
   const projects = useSelector((state) => state.projects);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(fetchProjectsAction(page));
   }, [dispatch, location]);
 
@@ -32,7 +33,9 @@ export default () => {
       <RouterLink {...props} />
     </div>
   ));
-  return (
+  return projects.isLoading ? (
+    <LinearProgress />
+  ) : (
     <>
       <List component="nav">
         {projects.values &&

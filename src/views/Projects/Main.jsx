@@ -1,9 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { makeStyles, Box, Typography, Divider } from "@material-ui/core";
 import Formulaire from "./Formulaire";
-import LinearProgress from "@material-ui/core/LinearProgress";
-
-const ListProjects = lazy(() => import("./ListProjects"));
+import ListProjects from "./ListProjects";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -22,9 +20,7 @@ export default () => {
         <Formulaire />
       </Box>
       <Divider />
-      <Suspense fallback={<LinearProgress />}>
-        <ListProjects />
-      </Suspense>
+      <ListProjects />
     </>
   );
 };

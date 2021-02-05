@@ -9,6 +9,8 @@ import IconButton from "@material-ui/core/IconButton";
 import { Box, Container, CssBaseline } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
+import AuthFormulaire from "./AuthFormulaire"
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -51,7 +53,7 @@ export default function ButtonAppBar({ children }) {
               </IconButton>
             </div>
           ) : (
-            <Button color="inherit">Login</Button>
+            <AuthFormulaire />
           )}
         </Toolbar>
       </AppBar>

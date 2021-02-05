@@ -1,4 +1,4 @@
 
-export const REQUEST_USER_ACTION = "request curentUser"
-export const ADD_USER_STORE = "add curentUser store"
-export const ERR_FETCH_USER = "erreur fetch curentUser"
+export const REQUEST_CURENTUSER_ACTION = "request curentUser"
+export const ADD_CURENTUSER_STORE = "add curentUser store"
+export const ERR_SIGNIN_CURENTUSER = "erreur signin curentUser"

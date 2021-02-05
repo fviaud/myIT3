@@ -12,6 +12,7 @@
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@types/react": "^16.8.6 || ^17.0.0",
     "axios": "^0.21.1",
+    "firebase": "^8.2.5",
     "parcel-bundler": "^1.12.4",
     "react": "^16.8.0 || ^17.0.0",
     "react-dom": "^16.8.0 || ^17.0.0",
@@ -21,10 +22,11 @@
     "redux": "^3.1.0 || ^4.0.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
+    "services": "^0.0.3",
     "yup": "^0.32.8"
   },
   "scripts": {
-    "dev": "parcel index.html",
+    "dev": "parcel index.html --hmr-port 8080",
     "build": "parcel build index.html"
   },
   "devDependencies": {

@@ -2,18 +2,19 @@ import * as types from "./types.js"
 
 export const curentUser = (state = {}, action) => {
     switch (action.type) {
-        case types.REQUEST_USER_ACTION:
+        case types.REQUEST_CURENTUSER_ACTION:
             return {
                 ...state,
                 isLoading: true
             }
-        case types.ADD_USER_STORE:
+        case types.ADD_CURENTUSER_STORE:
             return {
                 ...state,
                 isLoading: false,
-                values: action.data
+                values: action.data,
+                error: null
             }
-        case types.ERR_FETCH_USER:
+        case types.ERR_SIGNIN_CURENTUSER:
             return {
                 isLoading: false,
                 error: action.error

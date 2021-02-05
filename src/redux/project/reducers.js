@@ -5,7 +5,6 @@ export const projectReducer = (state = {}, action) => {
         case types.REQUEST_PROJECT_ACTION:
             return {
                 ...state,
-                values: null,
                 isLoading: true
             }
         case types.ADD_PROJECT_STORE:

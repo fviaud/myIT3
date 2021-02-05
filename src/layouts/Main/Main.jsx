@@ -53,7 +53,7 @@ export default function ButtonAppBar({ children }) {
               </IconButton>
             </div>
           ) : (
-            <AuthFormulaire />
+            <AuthFormulaire loading={curentUser.isLoading}/>
           )}
         </Toolbar>
       </AppBar>

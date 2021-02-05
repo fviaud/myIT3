@@ -15,7 +15,7 @@ export default () => {
     <>
       <Box display="flex" mb={1}>
         <Typography color="primary" variant="h5" className={classes.title}>
-          Projects4568
+          Projects
         </Typography>
         <Formulaire />
       </Box>

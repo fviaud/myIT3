@@ -2,6 +2,8 @@ import { getRessources, addRessource } from "../../api/api.ressources"
 import 'regenerator-runtime/runtime'
 import * as types from "./types.js"
 
+import { fetchProjectAction } from "../project/actions"
+
 export const requestRessourcesAction = () => {
     return {
         type: types.REQUEST_RESSOURCES_ACTION
@@ -12,20 +14,19 @@ export const fetchRessourcesAction = (projectId, page) => {
     return async (dispatch) => {
         dispatch(requestRessourcesAction())
         try {
+            await dispatch(fetchProjectAction(projectId));
             const objetByPage = objetByPage || 10
             const newPage = page || 1
             const response = await getRessources(projectId)
             const totalPages = Math.ceil(response.data.length / objetByPage)
             const ressources = response.data.filter((ressource, index) => index < newPage * objetByPage && index >= (newPage - 1) * objetByPage)
                 .map((ressource) => (ressource.id % 2 == 0 ? { type: "environment" } : { type: "virual machine" }))
-
-
             // const response = { data: [] }
             // dispatch(addRessourcesStoreAction(response.data))
             dispatch(addRessourcesStoreAction({ ressources, totalPages }))
 
         } catch (error) {
-            dispatch(errorFetchRessourcesAction("erreur accès api Ressources"))
+            dispatch(errorFetchRessourcesAction("Erreur accès api ressources"))
         }
     }
 }

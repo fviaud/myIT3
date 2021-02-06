@@ -2,6 +2,8 @@ import React, { useEffect, forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink as RouterLink, useLocation } from "react-router-dom";
 
+import Alert from "@material-ui/lab/Alert";
+
 import {
   makeStyles,
   Box,
@@ -40,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default () => {
+export default ({ match }) => {
   const classes = useStyles();
   const project = useSelector((state) => state.project);
   const ressources = useSelector((state) => state.ressources);
@@ -51,8 +53,8 @@ export default () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchRessourcesAction(project.values.id, page));
-  }, [dispatch, project.values.idProject, location]);
+    dispatch(fetchRessourcesAction(match.params.id, page));
+  }, [dispatch, match.params.id, location]);
 
   const CustomRouterLink = forwardRef((props, ref) => (
     <div ref={ref}>
@@ -60,17 +62,18 @@ export default () => {
     </div>
   ));
 
-  return (
+  return ressources.isLoading ? (
+    <LinearProgress />
+  ) : project.values ? (
     <>
-      <Typography variant="subtitle1" className={classes.wrapIcon}>
-        <FolderOpenIcon />
-        <Box ml={1}>{project.values.title}</Box>
-      </Typography>
-      <Divider />
-      {ressources.isLoading ? (
-        <>
-          <LinearProgress />
-        </>
+      {/* <Box display="flex" mt={1}>
+        <Typography variant="h6" color="primary" className={classes.title}>
+          Ressources
+        </Typography>
+        <Formulaire />
+      </Box> */}
+      {ressources.error ? (
+        <Alert severity="error">{ressources.error}</Alert>
       ) : (
         <>
           <Box display="flex" mt={1}>
@@ -80,11 +83,22 @@ export default () => {
             <Formulaire />
           </Box>
 
-          <List component="nav" aria-label="main mailbox folders">
-            {ressources.values &&
-              ressources.values.map((ressource, index) => (
-                <ListItem button component={CustomRouterLink} to={`/project/${index}/overview`} key={index}>
-                  <ListItemAvatar>{ressource.type === "environment" ? <DnsIcon /> : <ComputerIcon />}</ListItemAvatar>
+          {ressources.values ? (
+            <List component="nav" aria-label="main mailbox folders">
+              {ressources.values.map((ressource, index) => (
+                <ListItem
+                  button
+                  component={CustomRouterLink}
+                  to={`/project/${index}/overview`}
+                  key={index}
+                >
+                  <ListItemAvatar>
+                    {ressource.type === "environment" ? (
+                      <DnsIcon />
+                    ) : (
+                      <ComputerIcon />
+                    )}
+                  </ListItemAvatar>
                   <ListItemText primary={ressource.type} />
                   <ListItemSecondaryAction>
                     <IconButton edge="end">
@@ -93,14 +107,19 @@ export default () => {
                   </ListItemSecondaryAction>
                 </ListItem>
               ))}
-          </List>
-          {ressources.totalPages > 1 && (
-            <Box className={classes.contentBody}>
-              <Pagination total_pages={ressources.totalPages} />
-            </Box>
+            </List>
+          ) : (
+            <>empty</>
           )}
         </>
       )}
+      {ressources.totalPages > 1 && (
+        <Box className={classes.contentBody}>
+          <Pagination total_pages={ressources.totalPages} />
+        </Box>
+      )}
     </>
+  ) : (
+    <Alert severity="error">{project.error}</Alert>
   );
 };

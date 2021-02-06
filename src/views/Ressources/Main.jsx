@@ -66,12 +66,6 @@ export default ({ match }) => {
     <LinearProgress />
   ) : project.values ? (
     <>
-      {/* <Box display="flex" mt={1}>
-        <Typography variant="h6" color="primary" className={classes.title}>
-          Ressources
-        </Typography>
-        <Formulaire />
-      </Box> */}
       {ressources.error ? (
         <Alert severity="error">{ressources.error}</Alert>
       ) : (

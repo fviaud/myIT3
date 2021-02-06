@@ -28,6 +28,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 // import { menuSidebar } from "./sideBarObjets";
 
@@ -276,29 +277,28 @@ export default function MiniDrawer({ children }) {
 
   const menuSidebar = [
     {
-      title: "dashboard",
-      href: "/dashboard",
-      icon: <HomeIcon />,
-    },
-    {
       title: "Project",
       href: `/project/${project.values && project.values.id}/overview`,
       icon: <SettingsIcon />,
+      disabled: !project.values && true,
     },
     {
       title: "Ressources",
       href: `/project/${project.values && project.values.id}/ressources`,
       icon: <StorageIcon />,
+      disabled: !project.values && true,
     },
     {
       title: "Members",
       href: `/project/${project.values && project.values.id}/members`,
       icon: <PeopleIcon />,
+      disabled: !project.values && true,
     },
     {
       title: "Billing",
       href: `/project/${project.values && project.values.id}/billing`,
       icon: <EuroIcon />,
+      disabled: !project.values && true,
     },
   ];
 
@@ -324,7 +324,9 @@ export default function MiniDrawer({ children }) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Tools
+            <ListItem component={CustomRouterLink} to="/Dasboard">
+              Tools
+            </ListItem>
           </Typography>
 
           {/* <div className={classes.search}>
@@ -394,7 +396,11 @@ export default function MiniDrawer({ children }) {
       >
         <div className={classes.toolbar}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            {theme.direction === "rtl" ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
           </IconButton>
         </div>
         <Divider />
@@ -407,6 +413,7 @@ export default function MiniDrawer({ children }) {
               to={menu.href}
               activeClassName={classes.active}
               className={classes.unactive}
+              disabled={menu.disabled}
             >
               <ListItemIcon>{menu.icon}</ListItemIcon>
               <ListItemText primary={menu.title} />

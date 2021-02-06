@@ -1,5 +1,6 @@
 import React, { lazy, } from "react";
 import { Switch, Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 
 import { RouteWithLayout } from "./components";
@@ -12,6 +13,7 @@ const Projects = lazy(() => import("./views/Projects"));
 const Project = lazy(() => import("./views/Project"));
 
 export default () => {
+  const curentUser = useSelector((state) => state.curentUser);
   return (
     <Switch>
 
@@ -21,36 +23,38 @@ export default () => {
         layout={MainLayout}
         path="/dashboard"
       />
+      {curentUser.values && (
+        <>
+          <RouteWithLayout
+            component={Project}
+            exact
+            layout={ProjetLayout}
+            path="/project/:id/overview"
+          />
 
-      <RouteWithLayout
-        component={Project}
-        exact
-        layout={ProjetLayout}
-        path="/project/:id/overview"
-      />
+          <RouteWithLayout
+            component={Ressources}
+            exact
+            layout={ProjetLayout}
+            path="/project/:id/ressources"
+          />
 
-      <RouteWithLayout
-        component={Ressources}
-        exact
-        layout={ProjetLayout}
-        path="/project/:id/ressources"
-      />
+          <RouteWithLayout
+            component={Members}
+            exact
+            layout={ProjetLayout}
+            path="/project/:id/members"
+          />
 
-      <RouteWithLayout
-        component={Members}
-        exact
-        layout={ProjetLayout}
-        path="/project/:id/members"
-      />
-
-      <RouteWithLayout
-        component={Billing}
-        exact
-        layout={ProjetLayout}
-        path="/project/:id/billing"
-      />
-
-      <Redirect to="/dashboard" />
+          <RouteWithLayout
+            component={Billing}
+            exact
+            layout={ProjetLayout}
+            path="/project/:id/billing"
+          />
+        </>
+      )}
+      < Redirect to="/dashboard" />
     </Switch>
   );
 };
